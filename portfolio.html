@@ -23,15 +23,16 @@
     /* --- Reset & Base --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
-    /* FIX: Mencegah geser kanan-kiri yang merusak layout */
+    /* FIX: LOCK HORIZONTAL SCROLL */
     html, body { 
       overflow-x: hidden; 
       width: 100%;
       position: relative;
+      -webkit-overflow-scrolling: touch;
     }
     
     body { font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; color: var(--text-main); background-color: var(--white); }
-    .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; width: 100%; }
+    .container { max-width: var(--container-width); margin: 0 auto; padding: 0 20px; width: 100%; }
     
     .brand img { 
       width: 28px !important; 
@@ -47,13 +48,14 @@
     .kicker { text-transform: uppercase; letter-spacing: 3px; font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.75rem; display: block; }
     .lead { font-size: 1.1rem; color: var(--text-light); margin-bottom: 2.5rem; max-width: 600px; }
 
-    /* --- Header & Navigation (FIXED FOR MOBILE) --- */
+    /* --- Header & Navigation --- */
     .site-header { padding: 15px 0; position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); z-index: 1100; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
     .header-inner { display: flex; justify-content: space-between; align-items: center; }
     .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.4rem; z-index: 1200; }
     
-    .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; z-index: 1200; }
-    .nav-toggle span { display: block; width: 25px; height: 2px; background: var(--primary); transition: var(--transition); }
+    /* HAMBURGER STYLING */
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; z-index: 1200; padding: 5px; }
+    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--primary); transition: var(--transition); }
 
     .site-nav { display: flex; align-items: center; gap: 25px; }
     .nav-link { font-weight: 600; font-size: 0.9rem; color: var(--text-light); }
@@ -61,80 +63,81 @@
 
     .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; font-weight: 600; border-radius: 4px; cursor: pointer; border: 2px solid transparent; gap: 10px; transition: var(--transition); }
     .btn-primary { background: var(--primary); color: var(--white); }
-    .btn-primary:hover { background: var(--accent); color: var(--primary); }
     .btn-sm { padding: 8px 20px; font-size: 0.85rem; }
 
     /* --- Portfolio Design --- */
-    .hero-section { padding: 60px 0 30px; }
+    .hero-section { padding: 40px 0 20px; }
 
-    /* FIX Grid: Mencegah overflow */
+    /* GRID OPTIMIZATION */
     .work-grid { 
       display: grid; 
       grid-template-columns: repeat(2, 1fr); 
       gap: 20px; 
       padding-bottom: 80px; 
-      width: 100%;
     }
     
     .work-item { 
       position: relative; 
       overflow: hidden; 
       height: 400px; 
-      background: #000; 
+      background: #eee; 
       border-radius: 12px; 
     }
     
-    .work-item.featured { grid-column: span 2; height: 550px; }
-    .work-item:hover img { transform: scale(1.05); opacity: 0.5; }
+    .work-item.featured { grid-column: span 2; height: 500px; }
 
     .work-details { 
-      position: absolute; inset: 0; padding: clamp(20px, 4vw, 40px); 
+      position: absolute; inset: 0; padding: 30px; 
       display: flex; flex-direction: column; justify-content: flex-end;
-      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%);
-      color: #fff; opacity: 1; transition: var(--transition);
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+      color: #fff; transition: var(--transition);
     }
     
-    /* Efek Desktop saja */
+    /* Desktop Hover Effect */
     @media (min-width: 993px) {
       .work-details { opacity: 0; transform: translateY(20px); }
       .work-item:hover .work-details { opacity: 1; transform: translateY(0); }
+      .work-item:hover img { transform: scale(1.05); }
     }
 
     .work-details span { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
-    .work-details h3 { font-size: clamp(1.4rem, 3vw, 2.2rem); margin: 5px 0; }
+    .work-details h3 { font-size: 1.8rem; margin: 5px 0; line-height: 1.2; }
     .work-details p { font-size: 0.9rem; opacity: 0.8; }
 
     /* --- FOOTER --- */
-    .site-footer { background: #0f0f0f; color: #888; padding: 80px 0 30px; }
+    .site-footer { background: #0f0f0f; color: #888; padding: 60px 0 30px; }
     .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 40px; }
-    .brand-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
     .brand-name { font-size: 1.5rem; color: #ffffff; font-weight: 800; }
-    .footer-links h4 { color: #ffffff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
-    .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; margin-bottom: 12px; font-size: 0.95rem; }
-    .footer-meta { grid-column: 1 / -1; margin-top: 60px; padding-top: 30px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
+    .footer-links h4 { color: #ffffff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+    .footer-nav a { display: block; color: #888; margin-bottom: 10px; font-size: 0.9rem; }
+    .footer-meta { grid-column: 1 / -1; margin-top: 40px; padding-top: 20px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
 
-    /* --- RESPONSIVE BREAKPOINTS --- */
+    /* --- MOBILE RESPONSIVE (CORE IMPROVEMENT) --- */
     @media (max-width: 992px) {
       .nav-toggle { display: flex; }
       
       .site-nav {
         position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
         background: var(--white); flex-direction: column; justify-content: center;
-        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); gap: 30px;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); gap: 25px; padding: 40px;
       }
       .site-nav.active { right: 0; }
+      
+      /* Hamburger Animation */
       .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
       .nav-toggle.active span:nth-child(2) { opacity: 0; }
       .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-      
-      .work-grid { grid-template-columns: 1fr; }
-      .work-item, .work-item.featured { grid-column: span 1; height: 350px; }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
-    }
 
-    @media (max-width: 600px) {
-      .footer-inner { grid-template-columns: 1fr; text-align: center; }
-      .footer-meta { flex-direction: column; gap: 20px; }
+      /* Grid Mobile - Full Width */
+      .work-grid { grid-template-columns: 1fr; gap: 15px; }
+      .work-item, .work-item.featured { grid-column: span 1; height: 320px; border-radius: 8px; }
+      
+      /* Detail Mobile - Always Visible & Balanced */
+      .work-details { padding: 20px; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 50%); }
+      .work-details h3 { font-size: 1.4rem; }
+      
+      .footer-inner { grid-template-columns: 1fr; text-align: center; gap: 30px; }
+      .footer-meta { flex-direction: column; gap: 15px; }
       .brand-wrapper { justify-content: center; }
     }
   </style>
@@ -148,7 +151,7 @@
         <span>Arkananta</span>
       </a>
       
-      <button class="nav-toggle" id="menuBtn">
+      <button class="nav-toggle" id="menuBtn" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
 
@@ -232,7 +235,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <div class="brand-wrapper">
+        <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
           <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#ffffff" stroke-width="6"/>
             <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#c5a059"/>
@@ -254,22 +257,22 @@
       <div class="footer-links">
         <h4>Kontak</h4>
         <div class="contact-info">
-          <span>info@arkanantabuild.co.id</span>
+          <span style="display:block; margin-bottom:10px;">info@arkanantabuild.co.id</span>
           <span>+62 812 3456 7890</span>
         </div>
       </div>
       <div class="footer-links">
         <h4>Ikuti Kami</h4>
-        <div class="social-links">
-          <a href="#">Instagram</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">WhatsApp</a>
+        <div class="social-links" style="display: flex; gap: 15px;">
+          <a href="#">IG</a>
+          <a href="#">LI</a>
+          <a href="#">WA</a>
         </div>
       </div>
       <div class="footer-meta">
         <p>&copy; <span id="year"></span> Arkananta. All rights reserved.</p>
         <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:none; border:none; color:#fff; cursor:pointer;">
-          ↑ Kembali ke atas
+          ↑ Atas
         </button>
       </div>
     </div>
@@ -279,7 +282,6 @@
     document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // LOGIKA MENU NAVIGASI HP (Sama seperti About)
         const menuBtn = document.getElementById('menuBtn');
         const navMenu = document.getElementById('navMenu');
 
