@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
   <title>Arkananta Build & Interior | Konstruksi & Interior</title>
   <meta name="description" content="Jasa konstruksi & interior profesional: kualitas premium, tepat waktu, transparan. Konsultasi gratis." />
   
@@ -11,13 +11,13 @@
   <style>
     /* --- Root Variables & Design Tokens --- */
     :root {
-      --primary: #1a1a1a;        /* Black Pearl */
-      --accent: #c5a059;         /* Premium Gold/Bronze */
+      --primary: #1a1a1a;
+      --accent: #c5a059;
       --text-main: #333333;
       --text-light: #666666;
       --white: #ffffff;
       --bg-light: #f9f9f9;
-      --bg-footer: #0f0f0f;      /* Hitam pekat untuk footer */
+      --bg-footer: #0f0f0f;
       --border: #eeeeee;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       --container-width: 1200px;
@@ -25,107 +25,134 @@
 
     /* --- Reset & Base --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    /* Mencegah geser kanan-kiri */
+    html, body { 
+      overflow-x: hidden; 
+      width: 100%;
+      position: relative;
+    }
+    
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
       line-height: 1.6;
       color: var(--text-main);
       background-color: var(--white);
-      overflow-x: hidden;
     }
-    .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+
+    .container { 
+      max-width: var(--container-width); 
+      margin: 0 auto; 
+      padding: 0 20px; 
+      width: 100%;
+    }
+
     img { max-width: 100%; height: auto; display: block; }
     a { text-decoration: none; color: inherit; transition: var(--transition); }
 
     /* --- Typography --- */
     h1, h2, h3 { color: var(--primary); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; }
-    h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); margin-bottom: 1.5rem; }
-    h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 1rem; }
-    h3 { font-size: 1.4rem; margin-bottom: 0.75rem; }
-    .kicker { text-transform: uppercase; letter-spacing: 3px; font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.75rem; }
-    .lead { font-size: 1.2rem; color: var(--text-light); margin-bottom: 2.5rem; max-width: 600px; }
+    h1 { font-size: clamp(2.2rem, 8vw, 3.8rem); margin-bottom: 1.2rem; }
+    h2 { font-size: clamp(1.6rem, 6vw, 2.5rem); margin-bottom: 1rem; }
+    h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
+    .kicker { text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--accent); font-size: 0.75rem; margin-bottom: 0.5rem; }
+    .lead { font-size: clamp(1rem, 4vw, 1.2rem); color: var(--text-light); margin-bottom: 2rem; }
 
     /* --- Buttons --- */
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; font-weight: 700; border-radius: 4px; cursor: pointer; border: 2px solid transparent; gap: 10px; transition: var(--transition); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; font-weight: 700; border-radius: 6px; cursor: pointer; border: 2px solid transparent; gap: 10px; transition: var(--transition); font-size: 0.95rem; }
     .btn-primary { background: var(--primary); color: var(--white); }
-    .btn-primary:hover { background: var(--accent); transform: translateY(-3px); }
     .btn-ghost { border-color: var(--primary); color: var(--primary); }
-    .btn-ghost:hover { background: var(--primary); color: var(--white); }
-    .btn-sm { padding: 8px 20px; font-size: 0.9rem; }
-
+    
     /* --- Header --- */
-    .site-header { padding: 15px 0; position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); z-index: 1000; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
+    .site-header { padding: 12px 0; position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); z-index: 1000; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
     .header-inner { display: flex; justify-content: space-between; align-items: center; }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; }
-    .site-nav { display: flex; align-items: center; gap: 25px; }
-    .nav-link { font-weight: 600; font-size: 0.95rem; color: var(--text-light); }
-    .nav-link:hover, .nav-link.active { color: var(--accent); }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.3rem; z-index: 1001; }
+    
+    /* Mobile Nav Toggle */
+    .nav-toggle { display: none; cursor: pointer; border: none; background: none; padding: 5px; z-index: 1001; }
+    .nav-toggle span { display: block; width: 25px; height: 3px; background: var(--primary); margin: 5px 0; transition: 0.3s; }
+
+    .site-nav { display: flex; align-items: center; gap: 20px; }
+    .nav-link { font-weight: 600; font-size: 0.9rem; color: var(--text-light); }
+    .nav-link:hover { color: var(--accent); }
 
     /* --- Hero Section --- */
-    .hero { padding: 100px 0; background-color: var(--bg-light); overflow: hidden; }
-    .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; align-items: center; }
-    .hero-actions { display: flex; gap: 15px; margin-bottom: 50px; }
-    .hero-badges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; border-top: 1px solid #ddd; padding-top: 30px; }
-    .badge strong { display: block; font-size: 1.1rem; color: var(--primary); }
-    .badge span { font-size: 0.85rem; color: var(--text-light); }
+    .hero { padding: clamp(60px, 10vw, 100px) 0; background-color: var(--bg-light); }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+    .hero-badges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; border-top: 1px solid #ddd; padding-top: 25px; }
+    .badge strong { display: block; font-size: 0.95rem; color: var(--primary); }
+    .badge span { font-size: 0.75rem; color: var(--text-light); }
+    
     .hero-media { position: relative; }
-    .hero-img { border-radius: 12px; box-shadow: 30px 30px 0 var(--accent); height: 550px; width: 100%; object-fit: cover; }
-    .hero-card { position: absolute; bottom: 20px; right: 20px; background: var(--primary); color: var(--white); padding: 30px; border-radius: 8px; max-width: 250px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .hero-img { border-radius: 12px; box-shadow: 20px 20px 0 var(--accent); width: 100%; height: 500px; object-fit: cover; }
+    .hero-card { position: absolute; bottom: 15px; right: 15px; background: var(--primary); color: var(--white); padding: 20px; border-radius: 8px; width: calc(100% - 60px); max-width: 220px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
 
-    /* --- Sections & Cards --- */
-    .section { padding: 100px 0; }
-    .section-head { margin-bottom: 60px; max-width: 700px; }
-    .section-head.row { display: flex; justify-content: space-between; align-items: flex-end; max-width: 100%; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-    .card { padding: 40px; background: var(--bg-light); border-radius: 8px; border-bottom: 4px solid transparent; transition: var(--transition); }
-    .card:hover { border-bottom-color: var(--accent); transform: translateY(-10px); background: #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
+    /* --- Sections --- */
+    .section { padding: clamp(60px, 8vw, 100px) 0; }
+    .section-head { margin-bottom: 40px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+    .card { padding: 30px; background: var(--bg-light); border-radius: 8px; border-bottom: 4px solid transparent; transition: var(--transition); }
+    .card:hover { border-bottom-color: var(--accent); transform: translateY(-5px); background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
 
     /* --- Strip --- */
-    .strip { background: var(--primary); color: var(--white); padding: 50px 0; }
-    .strip-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px; }
-    .strip-item strong { display: block; font-size: 1.25rem; color: var(--accent); margin-bottom: 5px; }
+    .strip { background: var(--primary); color: var(--white); padding: 40px 0; }
+    .strip-inner { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 30px; text-align: center; }
+    .strip-item strong { display: block; font-size: 1.1rem; color: var(--accent); margin-bottom: 5px; }
 
     /* --- Portfolio --- */
-    .project { border-radius: 12px; overflow: hidden; background: var(--bg-light); transition: var(--transition); }
-    .project:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-    .project img { width: 100%; height: 350px; object-fit: cover; }
-    .project-body { padding: 25px; }
+    .project { border-radius: 12px; overflow: hidden; background: var(--bg-light); }
+    .project img { width: 100%; height: 280px; object-fit: cover; }
+    .project-body { padding: 20px; }
 
     /* --- CTA --- */
-    .cta { background: var(--accent); padding: 80px 0; color: var(--primary); }
-    .cta-inner { display: flex; justify-content: space-between; align-items: center; }
+    .cta { background: var(--accent); padding: 60px 0; color: var(--primary); text-align: center; }
+    .cta-inner { display: flex; flex-direction: column; align-items: center; gap: 25px; }
+    .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
 
-    /* --- Footer (Unified) --- */
-    .site-footer { background: var(--bg-footer); color: #888; padding: 80px 0 30px; }
+    /* --- Footer --- */
+    .site-footer { background: var(--bg-footer); color: #888; padding: 60px 0 20px; }
     .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 40px; }
-    .brand-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-    .brand-name { font-size: 1.5rem; color: #fff; font-weight: 800; }
-    .brand-desc { max-width: 300px; line-height: 1.8; font-size: 0.95rem; }
-    .footer-links h4 { color: #fff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
-    .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; margin-bottom: 12px; font-size: 0.95rem; }
-    .footer-nav a:hover, .social-links a:hover { color: var(--accent); transform: translateX(5px); }
-    .footer-meta { grid-column: 1 / -1; border-top: 1px solid #222; margin-top: 60px; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
-    .to-top { background: none; border: none; color: #fff; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
-    .to-top:hover { color: var(--accent); }
+    .brand-name { font-size: 1.3rem; color: #fff; font-weight: 800; }
+    .footer-links h4 { color: #fff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+    .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; margin-bottom: 10px; font-size: 0.9rem; }
+    .footer-meta { grid-column: 1 / -1; border-top: 1px solid #222; margin-top: 40px; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
 
-    /* --- Responsive --- */
+    /* --- RESPONSIVE MOBILE --- */
     @media (max-width: 992px) {
-      .hero-grid { grid-template-columns: 1fr; text-align: center; }
-      .hero-copy { order: 2; }
-      .hero-media { order: 1; margin-bottom: 50px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy { text-align: center; order: 2; }
+      .hero-media { order: 1; margin: 0 auto 40px; max-width: 600px; }
       .hero-actions, .hero-badges { justify-content: center; }
-      .cta-inner { flex-direction: column; text-align: center; gap: 30px; }
+      .hero-img { height: 400px; box-shadow: 15px 15px 0 var(--accent); }
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
+
     @media (max-width: 768px) {
-      .site-nav { display: none; }
+      /* Mobile Menu */
+      .nav-toggle { display: block; }
+      .site-nav { 
+        position: fixed; top: 0; right: -100%; width: 80%; height: 100vh; 
+        background: var(--white); flex-direction: column; padding: 100px 40px; 
+        transition: 0.4s; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+      }
+      .site-nav.active { right: 0; }
+      .nav-link { font-size: 1.2rem; width: 100%; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+      
+      .section-head.row { flex-direction: column; align-items: flex-start; gap: 20px; }
       .footer-inner { grid-template-columns: 1fr; text-align: center; }
       .brand-wrapper { justify-content: center; }
-      .brand-desc { margin: 0 auto; }
-      .footer-meta { flex-direction: column; gap: 20px; }
+      .footer-meta { flex-direction: column; gap: 15px; text-align: center; }
     }
+
+    @media (max-width: 480px) {
+      .hero-badges { grid-template-columns: 1fr; text-align: center; gap: 20px; }
+      .btn { width: 100%; }
+      .hero-img { height: 300px; }
+    }
+
     .skip { position: absolute; left: -10000px; background: var(--accent); color: #000; padding: 10px; z-index: 10001; }
-    .skip:focus { left: 0; top: 0; }
   </style>
 </head>
 <body>
@@ -133,20 +160,25 @@
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html">
-        <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <a class="brand" href="#">
+        <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#c5a059" stroke-width="6"/>
           <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#1a1a1a"/>
         </svg>
         <span>Arkananta</span>
       </a>
-      <nav class="site-nav">
-        <a class="nav-link active" href="index.html">Home</a>
-        <a class="nav-link" href="about.html">About</a>
-        <a class="nav-link" href="services.html">Services</a>
-        <a class="nav-link" href="portfolio.html">Portfolio</a>
-        <a class="nav-link" href="contact.html">Contact</a>
-        <a class="btn btn-primary btn-sm" href="contact.html">Konsultasi Gratis</a>
+      
+      <button class="nav-toggle" id="menuBtn">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="navMenu">
+        <a class="nav-link active" href="#">Home</a>
+        <a class="nav-link" href="#">About</a>
+        <a class="nav-link" href="#">Services</a>
+        <a class="nav-link" href="#">Portfolio</a>
+        <a class="nav-link" href="#">Contact</a>
+        <a class="btn btn-primary btn-sm" href="#">Konsultasi</a>
       </nav>
     </div>
   </header>
@@ -157,10 +189,10 @@
         <div class="hero-copy">
           <p class="kicker">Konstruksi & Interior</p>
           <h1>Membangun Ruang, Mewujudkan Impian.</h1>
-          <p class="lead">Perencanaan rapi, eksekusi presisi, desain berkelas. Kami bantu hunian dan ruang komersial Anda jadi lebih kokoh, fungsional, dan estetik.</p>
+          <p class="lead">Perencanaan rapi, eksekusi presisi, desain berkelas untuk hunian dan bisnis Anda.</p>
           <div class="hero-actions">
-            <a class="btn btn-primary" href="contact.html">Mulai Konsultasi</a>
-            <a class="btn btn-ghost" href="portfolio.html">Lihat Portofolio</a>
+            <a class="btn btn-primary" href="#">Mulai Konsultasi</a>
+            <a class="btn btn-ghost" href="#">Lihat Portofolio</a>
           </div>
           <div class="hero-badges">
             <div class="badge"><strong>Transparan</strong><span>RAB jelas & rapi</span></div>
@@ -171,8 +203,8 @@
         <div class="hero-media">
           <img class="hero-img" src="https://i.pinimg.com/736x/33/d7/d3/33d7d3a8982602f5758770cb21fc46b0.jpg" alt="Arsitektur Modern" />
           <div class="hero-card">
-            <p style="font-weight: 700; margin-bottom: 10px;">Building Vision. Crafting Excellence.</p>
-            <p style="font-size: 0.8rem; opacity: 0.8;">Hunian • Office • Cafe • Commercial</p>
+            <p style="font-weight: 700; margin-bottom: 5px; font-size:0.9rem;">Building Vision.</p>
+            <p style="font-size: 0.75rem; opacity: 0.8;">Hunian • Office • Cafe • Commercial</p>
           </div>
         </div>
       </div>
@@ -182,66 +214,20 @@
       <div class="container">
         <div class="section-head">
           <p class="kicker">Layanan Kami</p>
-          <h2>Partner yang bisa diandalkan untuk proyek Anda</h2>
-          <p>Standar kerja profesional dari desain hingga serah terima.</p>
+          <h2>Partner Proyek Anda</h2>
         </div>
         <div class="grid-3">
           <article class="card">
-            <h3>Konstruksi Bangunan</h3>
-            <p>Rumah tinggal, ruko, renovasi, hingga proyek komersial dengan pengawasan ketat.</p>
+            <h3>Konstruksi</h3>
+            <p>Pembangunan dari nol hingga serah terima kunci dengan kualitas material terbaik.</p>
           </article>
           <article class="card">
-            <h3>Desain & Interior</h3>
-            <p>Interior fungsional dan estetik: rumah, apartemen, kantor, café, custom furniture.</p>
+            <h3>Interior</h3>
+            <p>Desain fungsional untuk menciptakan suasana ruangan yang nyaman dan estetik.</p>
           </article>
           <article class="card">
-            <h3>Manajemen Proyek</h3>
-            <p>Estimasi biaya, timeline, koordinasi tim, kontrol kualitas, laporan progres berkala.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="strip">
-      <div class="container strip-inner">
-        <div class="strip-item"><strong>Quality First</strong><span>Material & finishing terkurasi</span></div>
-        <div class="strip-item"><strong>On Budget</strong><span>Biaya terkontrol dan terencana</span></div>
-        <div class="strip-item"><strong>Dedicated Team</strong><span>Tenaga ahli & supervisi</span></div>
-        <div class="strip-item"><strong>Safety</strong><span>Standar kerja aman</span></div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <div class="section-head row">
-          <div>
-            <p class="kicker">Hasil Kerja</p>
-            <h2>Cuplikan portofolio</h2>
-            <p>Beberapa proyek representatif yang telah kami selesaikan.</p>
-          </div>
-          <a class="btn btn-ghost btn-sm" href="portfolio.html">Lihat semua</a>
-        </div>
-        <div class="grid-3">
-          <article class="project">
-            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80" alt="Rumah modern minimalis" />
-            <div class="project-body">
-              <h3>Modern Residential House</h3>
-              <p>Jakarta Selatan • 2 lantai • Minimalis modern</p>
-            </div>
-          </article>
-          <article class="project">
-            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80" alt="Interior kantor modern" />
-            <div class="project-body">
-              <h3>Office Interior</h3>
-              <p>BSD • Workspace • Ergonomis & clean</p>
-            </div>
-          </article>
-          <article class="project">
-            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80" alt="Cafe konsep industrial" />
-            <div class="project-body">
-              <h3>Cafe Industrial Concept</h3>
-              <p>Bandung • Renovasi total • Industrial</p>
-            </div>
+            <h3>Maintenance</h3>
+            <p>Layanan perawatan berkala untuk memastikan bangunan Anda tetap dalam kondisi prima.</p>
           </article>
         </div>
       </div>
@@ -249,13 +235,10 @@
 
     <section class="cta">
       <div class="container cta-inner">
-        <div>
-          <h2>Siap mulai proyek Anda?</h2>
-          <p>Kirim kebutuhan Anda, kami bantu estimasi & rencana kerja secara transparan.</p>
-        </div>
+        <h2>Siap mulai proyek Anda?</h2>
+        <p>Hubungi kami untuk estimasi biaya transparan.</p>
         <div class="cta-actions">
-          <a class="btn btn-primary" href="contact.html">Konsultasi Gratis</a>
-          <a class="btn btn-ghost" href="services.html" style="border-color: var(--primary);">Lihat Layanan</a>
+          <a class="btn btn-primary" href="#">WhatsApp Kami</a>
         </div>
       </div>
     </section>
@@ -264,53 +247,49 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <div class="brand-wrapper">
-          <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#ffffff" stroke-width="6"/>
-            <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#c5a059"/>
-          </svg>
-          <strong class="brand-name">Arkananta</strong>
-        </div>
-        <p class="brand-desc">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
+        <strong class="brand-name">Arkananta</strong>
+        <p style="margin-top:15px; font-size:0.85rem;">Membangun dengan integritas di setiap detail konstruksi.</p>
       </div>
       <div class="footer-links">
         <h4>Navigasi</h4>
         <nav class="footer-nav">
-          <a href="index.html">Home</a>
-          <a href="about.html">About Us</a>
-          <a href="services.html">Services</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="contact.html">Contact</a>
+          <a href="#">Home</a>
+          <a href="#">Portfolio</a>
+          <a href="#">Contact</a>
         </nav>
       </div>
       <div class="footer-links">
         <h4>Kontak</h4>
         <div class="contact-info">
-          <span>info@arkanantabuild.co.id</span>
-          <span>+62 812 3456 7890</span>
           <span>Jakarta, Indonesia</span>
-        </div>
-      </div>
-      <div class="footer-links">
-        <h4>Ikuti Kami</h4>
-        <div class="social-links">
-          <a href="https://www.instagram.com/">Instagram</a>
-          <a href="https://www.linkedin.com/">LinkedIn</a>
-          <a href="https://wa.me/6281234567890">WhatsApp</a>
+          <span>+62 812 3456 7890</span>
         </div>
       </div>
       <div class="footer-meta">
-        <p>&copy; <span id="year"></span> Arkananta Build & Interior. All rights reserved.</p>
-        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-          ↑ <span class="to-top-text">Kembali ke atas</span>
-        </button>
+        <p>&copy; <span id="year"></span> Arkananta. All rights reserved.</p>
+        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
       </div>
     </div>
   </footer>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('year').textContent = new Date().getFullYear();
+    // Update Tahun
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile Menu Toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    menuBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      // Animasi simpel hamburger
+      const spans = menuBtn.querySelectorAll('span');
+      spans.forEach(span => span.style.backgroundColor = navMenu.classList.contains('active') ? '#c5a059' : '#1a1a1a');
+    });
+
+    // Close menu saat link diklik
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => navMenu.classList.remove('active'));
     });
   </script>
 </body>
