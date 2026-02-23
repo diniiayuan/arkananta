@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    /* --- Root Variables & Design Tokens --- */
+    /* --- Root Variables --- */
     :root {
       --primary: #1a1a1a;
       --accent: #c5a059;
@@ -23,14 +23,14 @@
       --container-width: 1200px;
     }
 
-    /* --- Reset & Base --- */
+    /* --- Reset & Anti-Scroll --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
-    /* Mencegah geser kanan-kiri */
     html, body { 
       overflow-x: hidden; 
       width: 100%;
       position: relative;
+      -webkit-overflow-scrolling: touch;
     }
     
     html { scroll-behavior: smooth; }
@@ -57,59 +57,69 @@
     h2 { font-size: clamp(1.6rem, 6vw, 2.5rem); margin-bottom: 1rem; }
     h3 { font-size: 1.3rem; margin-bottom: 0.75rem; }
     .kicker { text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: var(--accent); font-size: 0.75rem; margin-bottom: 0.5rem; }
-    .lead { font-size: clamp(1rem, 4vw, 1.2rem); color: var(--text-light); margin-bottom: 2rem; }
+    .lead { font-size: clamp(1rem, 4vw, 1.2rem); color: var(--text-light); margin-bottom: 2rem; max-width: 600px; }
 
     /* --- Buttons --- */
     .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; font-weight: 700; border-radius: 6px; cursor: pointer; border: 2px solid transparent; gap: 10px; transition: var(--transition); font-size: 0.95rem; }
     .btn-primary { background: var(--primary); color: var(--white); }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-3px); }
     .btn-ghost { border-color: var(--primary); color: var(--primary); }
-    
+    .btn-ghost:hover { background: var(--primary); color: var(--white); }
+
     /* --- Header --- */
     .site-header { padding: 12px 0; position: sticky; top: 0; background: rgba(255, 255, 255, 0.95); z-index: 1000; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
     .header-inner { display: flex; justify-content: space-between; align-items: center; }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.3rem; z-index: 1001; }
     
-    /* Mobile Nav Toggle */
-    .nav-toggle { display: none; cursor: pointer; border: none; background: none; padding: 5px; z-index: 1001; }
+    .nav-toggle { display: none; cursor: pointer; border: none; background: none; z-index: 1001; }
     .nav-toggle span { display: block; width: 25px; height: 3px; background: var(--primary); margin: 5px 0; transition: 0.3s; }
 
     .site-nav { display: flex; align-items: center; gap: 20px; }
     .nav-link { font-weight: 600; font-size: 0.9rem; color: var(--text-light); }
-    .nav-link:hover { color: var(--accent); }
+    .nav-link:hover, .nav-link.active { color: var(--accent); }
 
     /* --- Hero Section --- */
-    .hero { padding: clamp(60px, 10vw, 100px) 0; background-color: var(--bg-light); }
+    .hero { padding: clamp(40px, 8vw, 80px) 0; background-color: var(--bg-light); }
     .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
     .hero-badges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; border-top: 1px solid #ddd; padding-top: 25px; }
     .badge strong { display: block; font-size: 0.95rem; color: var(--primary); }
     .badge span { font-size: 0.75rem; color: var(--text-light); }
     
-    .hero-media { position: relative; }
-    .hero-img { border-radius: 12px; box-shadow: 20px 20px 0 var(--accent); width: 100%; height: 500px; object-fit: cover; }
-    .hero-card { position: absolute; bottom: 15px; right: 15px; background: var(--primary); color: var(--white); padding: 20px; border-radius: 8px; width: calc(100% - 60px); max-width: 220px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .hero-media { position: relative; width: 100%; }
+    .hero-img { border-radius: 12px; box-shadow: 20px 20px 0 var(--accent); width: 100%; height: clamp(300px, 50vh, 500px); object-fit: cover; }
+    
+    /* --- PERBAIKAN ITEM ITEM HITAM --- */
+    .hero-card { 
+      position: absolute; 
+      bottom: 20px; 
+      right: 20px; 
+      background: var(--primary); 
+      color: var(--white); 
+      padding: 15px; 
+      border-radius: 8px; 
+      max-width: 180px; /* Lebar dibatasi agar tidak raksasa di HP */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+      z-index: 5;
+    }
 
-    /* --- Sections --- */
-    .section { padding: clamp(60px, 8vw, 100px) 0; }
+    /* --- Sections & Cards --- */
+    .section { padding: clamp(60px, 10vw, 100px) 0; }
     .section-head { margin-bottom: 40px; }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
     .card { padding: 30px; background: var(--bg-light); border-radius: 8px; border-bottom: 4px solid transparent; transition: var(--transition); }
     .card:hover { border-bottom-color: var(--accent); transform: translateY(-5px); background: #fff; box-shadow: 0 15px 30px rgba(0,0,0,0.05); }
 
-    /* --- Strip --- */
     .strip { background: var(--primary); color: var(--white); padding: 40px 0; }
     .strip-inner { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 30px; text-align: center; }
     .strip-item strong { display: block; font-size: 1.1rem; color: var(--accent); margin-bottom: 5px; }
 
-    /* --- Portfolio --- */
     .project { border-radius: 12px; overflow: hidden; background: var(--bg-light); }
     .project img { width: 100%; height: 280px; object-fit: cover; }
     .project-body { padding: 20px; }
 
-    /* --- CTA --- */
     .cta { background: var(--accent); padding: 60px 0; color: var(--primary); text-align: center; }
-    .cta-inner { display: flex; flex-direction: column; align-items: center; gap: 25px; }
-    .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+    .cta-inner { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 
     /* --- Footer --- */
     .site-footer { background: var(--bg-footer); color: #888; padding: 60px 0 20px; }
@@ -119,37 +129,33 @@
     .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; margin-bottom: 10px; font-size: 0.9rem; }
     .footer-meta { grid-column: 1 / -1; border-top: 1px solid #222; margin-top: 40px; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; }
 
-    /* --- RESPONSIVE MOBILE --- */
+    /* --- RESPONSIVE SETTINGS --- */
     @media (max-width: 992px) {
       .hero-grid { grid-template-columns: 1fr; }
       .hero-copy { text-align: center; order: 2; }
-      .hero-media { order: 1; margin: 0 auto 40px; max-width: 600px; }
+      .hero-media { order: 1; margin: 0 auto 30px; max-width: 500px; }
       .hero-actions, .hero-badges { justify-content: center; }
-      .hero-img { height: 400px; box-shadow: 15px 15px 0 var(--accent); }
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 768px) {
-      /* Mobile Menu */
       .nav-toggle { display: block; }
       .site-nav { 
-        position: fixed; top: 0; right: -100%; width: 80%; height: 100vh; 
-        background: var(--white); flex-direction: column; padding: 100px 40px; 
+        position: fixed; top: 0; right: -100%; width: 75%; height: 100vh; 
+        background: var(--white); flex-direction: column; padding: 100px 30px; 
         transition: 0.4s; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
       }
       .site-nav.active { right: 0; }
-      .nav-link { font-size: 1.2rem; width: 100%; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+      .nav-link { font-size: 1.1rem; width: 100%; padding: 10px 0; border-bottom: 1px solid var(--border); }
       
-      .section-head.row { flex-direction: column; align-items: flex-start; gap: 20px; }
       .footer-inner { grid-template-columns: 1fr; text-align: center; }
-      .brand-wrapper { justify-content: center; }
-      .footer-meta { flex-direction: column; gap: 15px; text-align: center; }
+      .footer-meta { flex-direction: column; gap: 15px; }
     }
 
     @media (max-width: 480px) {
-      .hero-badges { grid-template-columns: 1fr; text-align: center; gap: 20px; }
+      .hero-badges { grid-template-columns: 1fr; gap: 15px; }
       .btn { width: 100%; }
-      .hero-img { height: 300px; }
+      .hero-card { max-width: 150px; padding: 12px; bottom: 10px; right: 10px; }
     }
 
     .skip { position: absolute; left: -10000px; background: var(--accent); color: #000; padding: 10px; z-index: 10001; }
@@ -168,7 +174,7 @@
         <span>Arkananta</span>
       </a>
       
-      <button class="nav-toggle" id="menuBtn">
+      <button class="nav-toggle" id="menuBtn" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
 
@@ -178,7 +184,7 @@
         <a class="nav-link" href="#">Services</a>
         <a class="nav-link" href="#">Portfolio</a>
         <a class="nav-link" href="#">Contact</a>
-        <a class="btn btn-primary btn-sm" href="#">Konsultasi</a>
+        <a class="btn btn-primary btn-sm" href="#" style="margin-top: 10px;">Konsultasi Gratis</a>
       </nav>
     </div>
   </header>
@@ -203,8 +209,8 @@
         <div class="hero-media">
           <img class="hero-img" src="https://i.pinimg.com/736x/33/d7/d3/33d7d3a8982602f5758770cb21fc46b0.jpg" alt="Arsitektur Modern" />
           <div class="hero-card">
-            <p style="font-weight: 700; margin-bottom: 5px; font-size:0.9rem;">Building Vision.</p>
-            <p style="font-size: 0.75rem; opacity: 0.8;">Hunian • Office • Cafe • Commercial</p>
+            <p style="font-weight: 800; font-size: 0.75rem; margin-bottom: 4px; color: #fff;">Building Vision.</p>
+            <p style="font-size: 0.65rem; opacity: 0.8; line-height: 1.3; color: #fff;">Hunian • Office • Cafe • Commercial</p>
           </div>
         </div>
       </div>
@@ -214,20 +220,20 @@
       <div class="container">
         <div class="section-head">
           <p class="kicker">Layanan Kami</p>
-          <h2>Partner Proyek Anda</h2>
+          <h2>Solusi Konstruksi Terpercaya</h2>
         </div>
         <div class="grid-3">
           <article class="card">
-            <h3>Konstruksi</h3>
-            <p>Pembangunan dari nol hingga serah terima kunci dengan kualitas material terbaik.</p>
+            <h3>Konstruksi Bangunan</h3>
+            <p>Pembangunan rumah, ruko, dan kantor dengan pengawasan ketat dan hasil berkualitas.</p>
           </article>
           <article class="card">
-            <h3>Interior</h3>
-            <p>Desain fungsional untuk menciptakan suasana ruangan yang nyaman dan estetik.</p>
+            <h3>Interior Design</h3>
+            <p>Transformasi ruangan menjadi lebih fungsional, estetik, dan sesuai karakter Anda.</p>
           </article>
           <article class="card">
-            <h3>Maintenance</h3>
-            <p>Layanan perawatan berkala untuk memastikan bangunan Anda tetap dalam kondisi prima.</p>
+            <h3>Renovasi</h3>
+            <p>Penyegaran bangunan lama menjadi baru dengan estimasi biaya yang transparan.</p>
           </article>
         </div>
       </div>
@@ -235,11 +241,9 @@
 
     <section class="cta">
       <div class="container cta-inner">
-        <h2>Siap mulai proyek Anda?</h2>
-        <p>Hubungi kami untuk estimasi biaya transparan.</p>
-        <div class="cta-actions">
-          <a class="btn btn-primary" href="#">WhatsApp Kami</a>
-        </div>
+        <h2>Siap mewujudkan proyek Anda?</h2>
+        <p>Konsultasikan kebutuhan Anda sekarang secara gratis.</p>
+        <a class="btn btn-primary" href="#">Hubungi Via WhatsApp</a>
       </div>
     </section>
   </main>
@@ -248,7 +252,7 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <strong class="brand-name">Arkananta</strong>
-        <p style="margin-top:15px; font-size:0.85rem;">Membangun dengan integritas di setiap detail konstruksi.</p>
+        <p style="margin-top:15px; font-size:0.85rem;">Membangun masa depan dengan fondasi integritas dan keindahan.</p>
       </div>
       <div class="footer-links">
         <h4>Navigasi</h4>
@@ -267,27 +271,21 @@
       </div>
       <div class="footer-meta">
         <p>&copy; <span id="year"></span> Arkananta. All rights reserved.</p>
-        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑ Atas</button>
+        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:none; border:none; color:#fff; cursor:pointer;">↑ Kembali ke Atas</button>
       </div>
     </div>
   </footer>
 
   <script>
-    // Update Tahun
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Mobile Menu Toggle
     const menuBtn = document.getElementById('menuBtn');
     const navMenu = document.getElementById('navMenu');
 
     menuBtn.addEventListener('click', () => {
       navMenu.classList.toggle('active');
-      // Animasi simpel hamburger
-      const spans = menuBtn.querySelectorAll('span');
-      spans.forEach(span => span.style.backgroundColor = navMenu.classList.contains('active') ? '#c5a059' : '#1a1a1a');
     });
 
-    // Close menu saat link diklik
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => navMenu.classList.remove('active'));
     });
