@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
   <title>Portfolio | Arkananta Build & Interior</title>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
   
@@ -22,82 +22,120 @@
 
     /* --- Reset & Base --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; color: var(--text-main); background-color: var(--white); overflow-x: hidden; }
-    .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
     
-    /* FIX LOGO: Supaya tidak ikut melar ke 100% */
+    /* FIX: Mencegah geser kanan-kiri yang merusak layout */
+    html, body { 
+      overflow-x: hidden; 
+      width: 100%;
+      position: relative;
+    }
+    
+    body { font-family: 'Plus Jakarta Sans', sans-serif; line-height: 1.6; color: var(--text-main); background-color: var(--white); }
+    .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; width: 100%; }
+    
     .brand img { 
       width: 28px !important; 
       height: 28px !important; 
       object-fit: contain;
     }
 
-    /* Gambar Portfolio tetap responsif */
     .work-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: var(--transition); }
     a { text-decoration: none; color: inherit; transition: var(--transition); }
 
     /* --- Typography --- */
-    h1 { font-size: clamp(2.5rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -2px; line-height: 1.1; margin-bottom: 1.5rem; }
+    h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -1px; line-height: 1.1; margin-bottom: 1.5rem; }
     .kicker { text-transform: uppercase; letter-spacing: 3px; font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.75rem; display: block; }
-    .lead { font-size: 1.2rem; color: var(--text-light); margin-bottom: 2.5rem; max-width: 600px; }
+    .lead { font-size: 1.1rem; color: var(--text-light); margin-bottom: 2.5rem; max-width: 600px; }
 
-    /* --- Header & Navigation --- */
-    .site-header { padding: 15px 0; position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); z-index: 1000; border-bottom: 1px solid var(--border); }
+    /* --- Header & Navigation (FIXED FOR MOBILE) --- */
+    .site-header { padding: 15px 0; position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); z-index: 1100; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
     .header-inner { display: flex; justify-content: space-between; align-items: center; }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.4rem; z-index: 1200; }
+    
+    .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; z-index: 1200; }
+    .nav-toggle span { display: block; width: 25px; height: 2px; background: var(--primary); transition: var(--transition); }
+
     .site-nav { display: flex; align-items: center; gap: 25px; }
-    .nav-link { font-weight: 500; font-size: 0.95rem; color: var(--text-light); }
+    .nav-link { font-weight: 600; font-size: 0.9rem; color: var(--text-light); }
     .nav-link:hover, .nav-link.active { color: var(--accent); }
 
-    /* Buttons */
     .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; font-weight: 600; border-radius: 4px; cursor: pointer; border: 2px solid transparent; gap: 10px; transition: var(--transition); }
     .btn-primary { background: var(--primary); color: var(--white); }
     .btn-primary:hover { background: var(--accent); color: var(--primary); }
-    .btn-sm { padding: 8px 20px; font-size: 0.9rem; }
+    .btn-sm { padding: 8px 20px; font-size: 0.85rem; }
 
     /* --- Portfolio Design --- */
-    .hero-section { padding: 80px 0 40px; }
+    .hero-section { padding: 60px 0 30px; }
 
-    /* Grid Modern */
-    .work-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; padding-bottom: 100px; }
-    .work-item { position: relative; overflow: hidden; grid-column: span 6; height: 450px; background: #000; border-radius: 8px; }
-    .work-item.featured { grid-column: span 12; height: 600px; }
+    /* FIX Grid: Mencegah overflow */
+    .work-grid { 
+      display: grid; 
+      grid-template-columns: repeat(2, 1fr); 
+      gap: 20px; 
+      padding-bottom: 80px; 
+      width: 100%;
+    }
     
-    .work-item:hover img { transform: scale(1.05); opacity: 0.6; }
+    .work-item { 
+      position: relative; 
+      overflow: hidden; 
+      height: 400px; 
+      background: #000; 
+      border-radius: 12px; 
+    }
+    
+    .work-item.featured { grid-column: span 2; height: 550px; }
+    .work-item:hover img { transform: scale(1.05); opacity: 0.5; }
 
     .work-details { 
-      position: absolute; inset: 0; padding: 40px; 
+      position: absolute; inset: 0; padding: clamp(20px, 4vw, 40px); 
       display: flex; flex-direction: column; justify-content: flex-end;
-      background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
-      color: #fff; opacity: 0; transform: translateY(20px); transition: var(--transition);
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%);
+      color: #fff; opacity: 1; transition: var(--transition);
     }
-    .work-item:hover .work-details { opacity: 1; transform: translateY(0); }
-    .work-details span { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; }
-    .work-details h3 { font-size: 2rem; margin: 5px 0; }
+    
+    /* Efek Desktop saja */
+    @media (min-width: 993px) {
+      .work-details { opacity: 0; transform: translateY(20px); }
+      .work-item:hover .work-details { opacity: 1; transform: translateY(0); }
+    }
 
-    /* --- FOOTER (MATCHING INDEX/CONTACT) --- */
+    .work-details span { color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; }
+    .work-details h3 { font-size: clamp(1.4rem, 3vw, 2.2rem); margin: 5px 0; }
+    .work-details p { font-size: 0.9rem; opacity: 0.8; }
+
+    /* --- FOOTER --- */
     .site-footer { background: #0f0f0f; color: #888; padding: 80px 0 30px; }
     .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 40px; }
     .brand-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-    .brand-name { font-size: 1.5rem; color: #ffffff; letter-spacing: -0.5px; font-weight: 800; }
-    .brand-desc { max-width: 300px; line-height: 1.8; font-size: 0.95rem; }
-    .footer-links h4 { color: #ffffff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 700; }
-    .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; text-decoration: none; margin-bottom: 12px; font-size: 0.95rem; transition: var(--transition); }
-    .footer-nav a:hover, .social-links a:hover { color: var(--accent); transform: translateX(5px); }
-    .footer-meta { grid-column: 1 / -1; margin-top: 60px; padding-top: 30px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
-    .to-top { background: none; border: none; color: #ffffff; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
-    .to-top:hover { color: var(--accent); }
+    .brand-name { font-size: 1.5rem; color: #ffffff; font-weight: 800; }
+    .footer-links h4 { color: #ffffff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; margin-bottom: 12px; font-size: 0.95rem; }
+    .footer-meta { grid-column: 1 / -1; margin-top: 60px; padding-top: 30px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
 
+    /* --- RESPONSIVE BREAKPOINTS --- */
     @media (max-width: 992px) {
-      .work-item, .work-item.featured { grid-column: span 12; height: 400px; }
+      .nav-toggle { display: flex; }
+      
+      .site-nav {
+        position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+        background: var(--white); flex-direction: column; justify-content: center;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); gap: 30px;
+      }
+      .site-nav.active { right: 0; }
+      .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .nav-toggle.active span:nth-child(2) { opacity: 0; }
+      .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      
+      .work-grid { grid-template-columns: 1fr; }
+      .work-item, .work-item.featured { grid-column: span 1; height: 350px; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
     }
+
     @media (max-width: 600px) {
       .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-meta { flex-direction: column; gap: 20px; }
       .brand-wrapper { justify-content: center; }
-      .brand-desc { margin: 0 auto; }
-      .footer-meta { flex-direction: column; gap: 20px; text-align: center; }
     }
   </style>
 </head>
@@ -109,7 +147,12 @@
         <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z' fill='none' stroke='%23c5a059' stroke-width='6'/><path d='M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z' fill='%231a1a1a'/></svg>" alt="Logo" />
         <span>Arkananta</span>
       </a>
-      <nav class="site-nav">
+      
+      <button class="nav-toggle" id="menuBtn">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="navMenu">
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="about.html">About</a>
         <a class="nav-link" href="services.html">Services</a>
@@ -196,7 +239,7 @@
           </svg>
           <strong class="brand-name">Arkananta</strong>
         </div>
-        <p class="brand-desc">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
+        <p style="max-width: 300px; font-size: 0.9rem;">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
       </div>
       <div class="footer-links">
         <h4>Navigasi</h4>
@@ -213,21 +256,20 @@
         <div class="contact-info">
           <span>info@arkanantabuild.co.id</span>
           <span>+62 812 3456 7890</span>
-          <span>Jakarta, Indonesia</span>
         </div>
       </div>
       <div class="footer-links">
         <h4>Ikuti Kami</h4>
         <div class="social-links">
-          <a href="https://www.instagram.com/">Instagram</a>
-          <a href="https://www.linkedin.com/">LinkedIn</a>
-          <a href="https://wa.me/6281234567890">WhatsApp</a>
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">WhatsApp</a>
         </div>
       </div>
       <div class="footer-meta">
-        <p>&copy; <span id="year"></span> Arkananta Build & Interior. All rights reserved.</p>
-        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-          ↑ <span class="to-top-text">Kembali ke atas</span>
+        <p>&copy; <span id="year"></span> Arkananta. All rights reserved.</p>
+        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:none; border:none; color:#fff; cursor:pointer;">
+          ↑ Kembali ke atas
         </button>
       </div>
     </div>
@@ -236,6 +278,25 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // LOGIKA MENU NAVIGASI HP (Sama seperti About)
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menuBtn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    menuBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        }
     });
   </script>
 </body>
