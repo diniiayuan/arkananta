@@ -251,43 +251,53 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <strong class="brand-name">Arkananta</strong>
-        <p style="margin-top:15px; font-size:0.85rem;">Membangun masa depan dengan fondasi integritas dan keindahan.</p>
+        <div class="brand-wrapper">
+          <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#ffffff" stroke-width="6"/>
+            <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#c5a059"/>
+          </svg>
+          <strong class="brand-name">Arkananta</strong>
+        </div>
+        <p class="brand-desc">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
       </div>
       <div class="footer-links">
         <h4>Navigasi</h4>
         <nav class="footer-nav">
-          <a href="#">Home</a>
-          <a href="#">Portfolio</a>
-          <a href="#">Contact</a>
+          <a href="index.html">Home</a>
+          <a href="about.html">About Us</a>
+          <a href="services.html">Services</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="contact.html">Contact</a>
         </nav>
       </div>
       <div class="footer-links">
         <h4>Kontak</h4>
         <div class="contact-info">
-          <span>Jakarta, Indonesia</span>
+          <span>info@arkanantabuild.co.id</span>
           <span>+62 812 3456 7890</span>
+          <span>Jakarta, Indonesia</span>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Ikuti Kami</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/">Instagram</a>
+          <a href="https://www.linkedin.com/">LinkedIn</a>
+          <a href="https://wa.me/6281234567890">WhatsApp</a>
         </div>
       </div>
       <div class="footer-meta">
-        <p>&copy; <span id="year"></span> Arkananta. All rights reserved.</p>
-        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:none; border:none; color:#fff; cursor:pointer;">↑ Kembali ke Atas</button>
+        <p>&copy; <span id="year"></span> Arkananta Build & Interior. All rights reserved.</p>
+        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+          ↑ <span class="to-top-text">Kembali ke atas</span>
+        </button>
       </div>
     </div>
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    const menuBtn = document.getElementById('menuBtn');
-    const navMenu = document.getElementById('navMenu');
-
-    menuBtn.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => navMenu.classList.remove('active'));
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('year').textContent = new Date().getFullYear();
     });
   </script>
 </body>
