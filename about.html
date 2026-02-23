@@ -2,12 +2,14 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
   <title>About | Arkananta Build & Interior</title>
   <meta name="description" content="Tentang Arkananta: visi, misi, dan komitmen kualitas di setiap proyek." />
   
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    /* --- Root & Design Tokens (Sesuai Index) --- */
+    /* --- Root & Design Tokens --- */
     :root {
       --primary: #1a1a1a;
       --accent: #c5a059;
@@ -20,116 +22,150 @@
       --container-width: 1200px;
     }
 
-    /* --- Reset & Base --- */
+    /* --- Reset & Base (Mencegah Geser Kanan Kiri) --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html, body { 
+      overflow-x: hidden; 
+      width: 100%;
+      position: relative;
+      -webkit-overflow-scrolling: touch;
+    }
+
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       line-height: 1.6;
       color: var(--text-main);
       background-color: var(--white);
     }
-    .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+
+    .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; width: 100%; }
     img { max-width: 100%; height: auto; display: block; }
     a { text-decoration: none; color: inherit; transition: var(--transition); }
 
     /* --- Typography --- */
-    h1, h2, h3 { color: var(--primary); font-weight: 700; line-height: 1.2; }
-    h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; }
-    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; }
-    .kicker { text-transform: uppercase; letter-spacing: 3px; font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.75rem; display: block; }
+    h1, h2, h3 { color: var(--primary); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.2rem, 8vw, 3.8rem); margin-bottom: 1.5rem; }
+    h2 { font-size: clamp(1.8rem, 6vw, 2.5rem); margin-bottom: 1rem; }
+    .kicker { text-transform: uppercase; letter-spacing: 3px; font-weight: 700; color: var(--accent); font-size: 0.75rem; margin-bottom: 0.75rem; display: block; }
 
-    /* --- Header & Buttons --- */
-    .site-header { padding: 15px 0; position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); z-index: 1000; border-bottom: 1px solid var(--border); }
+    /* --- Header & Navigation Mobile --- */
+    .site-header { padding: 12px 0; position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); z-index: 1000; border-bottom: 1px solid var(--border); backdrop-filter: blur(10px); }
     .header-inner { display: flex; justify-content: space-between; align-items: center; }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.3rem; z-index: 1001; }
+    
+    .nav-toggle { display: none; cursor: pointer; border: none; background: none; z-index: 1001; }
+    .nav-toggle span { display: block; width: 25px; height: 3px; background: var(--primary); margin: 5px 0; transition: 0.3s; }
+
     .site-nav { display: flex; align-items: center; gap: 25px; }
+    .nav-link { font-weight: 600; font-size: 0.9rem; color: var(--text-light); }
     .nav-link:hover, .nav-link.active { color: var(--accent); }
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; font-weight: 600; border-radius: 4px; cursor: pointer; border: 2px solid transparent; gap: 10px; }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; font-weight: 700; border-radius: 6px; cursor: pointer; border: 2px solid transparent; gap: 10px; transition: var(--transition); }
     .btn-primary { background: var(--primary); color: var(--white); }
-    .btn-primary:hover { background: var(--accent); color: var(--primary); }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-3px); }
     .btn-ghost { border-color: var(--primary); color: var(--primary); }
     .btn-ghost:hover { background: var(--primary); color: var(--white); }
-    .btn-sm { padding: 8px 20px; font-size: 0.9rem; }
+    .btn-sm { padding: 8px 20px; font-size: 0.85rem; }
 
-    /* --- ABOUT CONTENT --- */
+    /* --- About Hero --- */
     .about-hero { 
-      padding: 120px 0; 
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');
+      padding: clamp(80px, 15vw, 150px) 0; 
+      background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');
       background-size: cover;
       background-position: center;
       color: var(--white);
       text-align: center;
     }
-    .about-hero h1 { color: var(--white); margin: 0 auto 20px; max-width: 900px; }
-    .about-hero p { font-size: 1.25rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
+    .about-hero h1 { color: var(--white); margin: 0 auto 20px; }
+    .about-hero p { font-size: clamp(1rem, 3vw, 1.25rem); opacity: 0.9; max-width: 700px; margin: 0 auto; }
 
+    /* --- Stats Bar Responsif --- */
     .stats-bar { background: var(--primary); color: var(--accent); padding: 40px 0; border-bottom: 4px solid var(--accent); }
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-    .stat-item strong { display: block; font-size: 2.5rem; line-height: 1; }
-    .stat-item span { color: var(--white); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+    .stat-item strong { display: block; font-size: clamp(1.8rem, 5vw, 2.5rem); line-height: 1; margin-bottom: 5px; }
+    .stat-item span { color: var(--white); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
 
-    .section { padding: 100px 0; }
-    .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .image-stack { position: relative; padding: 20px; }
-    .image-main { border-radius: 12px; box-shadow: 20px 20px 0 var(--accent); }
+    /* --- Sections --- */
+    .section { padding: clamp(60px, 10vw, 100px) 0; }
+    .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(30px, 5vw, 60px); align-items: center; }
+    .image-main { border-radius: 12px; box-shadow: 15px 15px 0 var(--accent); width: 100%; }
     
     .bg-alt { background: var(--bg-light); }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
     .value-card { 
       padding: 40px; background: var(--white); border-radius: 12px; 
       border-top: 4px solid var(--accent); transition: var(--transition);
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
     .value-card:hover { transform: translateY(-10px); }
-    .value-card h3 { margin-bottom: 15px; color: var(--primary); }
 
+    /* --- Visi Misi Box --- */
     .vm-box { 
       display: grid; grid-template-columns: 1fr 1fr; background: var(--primary); 
       color: var(--white); border-radius: 20px; overflow: hidden; margin-top: 50px;
     }
-    .vm-content { padding: 60px; }
-    .vm-image { background: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center; }
+    .vm-content { padding: clamp(30px, 6vw, 60px); }
+    .vm-image { background: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center; min-height: 300px; }
 
-    .cta { background: var(--accent); padding: 80px 0; color: var(--primary); }
-    .cta-inner { display: flex; justify-content: space-between; align-items: center; }
+    /* --- CTA --- */
+    .cta { background: var(--accent); padding: 60px 0; color: var(--primary); }
+    .cta-inner { display: flex; justify-content: space-between; align-items: center; gap: 30px; }
 
-    /* --- FOOTER (MATCHING INDEX) --- */
+    /* --- Footer --- */
     .site-footer { background: #0f0f0f; color: #888; padding: 80px 0 30px; }
     .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 40px; }
-    .brand-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-    .brand-name { font-size: 1.5rem; color: #ffffff; letter-spacing: -0.5px; font-weight: 800; }
-    .brand-desc { max-width: 300px; line-height: 1.8; font-size: 0.95rem; }
-    .footer-links h4 { color: #ffffff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 700; }
-    .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; text-decoration: none; margin-bottom: 12px; font-size: 0.95rem; transition: var(--transition); }
-    .footer-nav a:hover, .social-links a:hover { color: var(--accent); transform: translateX(5px); }
-    .footer-meta { grid-column: 1 / -1; margin-top: 60px; padding-top: 30px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
-    .to-top { background: none; border: none; color: #ffffff; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
-    .to-top:hover { color: var(--accent); }
+    .brand-name { font-size: 1.5rem; color: #ffffff; font-weight: 800; }
+    .footer-links h4 { color: #ffffff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; margin-bottom: 12px; font-size: 0.95rem; }
+    .footer-meta { grid-column: 1 / -1; margin-top: 60px; padding-top: 30px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
 
+    /* --- MEDIA QUERIES (FULL RESPONSIVE) --- */
     @media (max-width: 992px) {
-      .intro-grid, .stats-grid, .vm-box, .cta-inner { grid-template-columns: 1fr; }
+      .intro-grid, .vm-box, .cta-inner { grid-template-columns: 1fr; }
+      .cta-inner { text-align: center; }
+      .cta-actions { display: flex; flex-direction: column; gap: 15px; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
-      .cta-inner { text-align: center; gap: 30px; }
-      .vm-image { height: 300px; }
     }
-    @media (max-width: 600px) {
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .site-nav { 
+        position: fixed; top: 0; right: -100%; width: 80%; height: 100vh; 
+        background: var(--white); flex-direction: column; padding: 100px 30px; 
+        transition: 0.4s; box-shadow: -10px 0 30px rgba(0,0,0,0.1); z-index: 1000;
+      }
+      .site-nav.active { right: 0; }
+      .nav-link { font-size: 1.2rem; width: 100%; padding: 10px 0; border-bottom: 1px solid var(--border); color: var(--primary); }
+      
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
       .footer-inner { grid-template-columns: 1fr; text-align: center; }
-      .brand-wrapper { justify-content: center; }
-      .brand-desc { margin: 0 auto; }
       .footer-meta { flex-direction: column; gap: 20px; }
-      .to-top-text { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .btn { width: 100%; }
     }
   </style>
 </head>
 <body>
- <header class="site-header">
+  <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="index.html">
-        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z' fill='none' stroke='%23c5a059' stroke-width='6'/><path d='M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z' fill='%231a1a1a'/></svg>" alt="Logo" width="28" height="28" />
+        <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#c5a059" stroke-width="6"/>
+          <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#1a1a1a"/>
+        </svg>
         <span>Arkananta</span>
       </a>
-      <nav class="site-nav">
+      
+      <button class="nav-toggle" id="menuBtn">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="site-nav" id="navMenu">
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link active" href="about.html">About</a>
         <a class="nav-link" href="services.html">Services</a>
@@ -206,7 +242,7 @@
           <div class="vm-image"></div>
         </div>
         
-        <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+        <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
           <div class="value-card">
             <h3 style="color: var(--accent);">01. Inovasi</h3>
             <p>Menerapkan teknik konstruksi terbaru untuk efisiensi dan keamanan bangunan.</p>
@@ -225,9 +261,9 @@
 
     <section class="cta">
       <div class="container cta-inner">
-        <div>
+        <div class="cta-text">
           <h2>Siap mulai proyek Anda?</h2>
-          <p>Kirim kebutuhan Anda, kami bantu estimasi & rencana kerja secara transparan.</p>
+          <p>Kirim kebutuhan Anda, kami bantu estimasi secara transparan.</p>
         </div>
         <div class="cta-actions">
           <a class="btn btn-primary" href="contact.html">Konsultasi Gratis</a>
@@ -240,7 +276,7 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <div class="brand-wrapper">
+        <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
           <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#ffffff" stroke-width="6"/>
             <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#c5a059"/>
@@ -270,15 +306,15 @@
       <div class="footer-links">
         <h4>Ikuti Kami</h4>
         <div class="social-links">
-          <a href="https://www.instagram.com/">Instagram</a>
-          <a href="https://www.linkedin.com/">LinkedIn</a>
-          <a href="https://wa.me/6281234567890">WhatsApp</a>
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">WhatsApp</a>
         </div>
       </div>
       <div class="footer-meta">
         <p>&copy; <span id="year"></span> Arkananta Build & Interior. All rights reserved.</p>
         <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-          ↑ <span class="to-top-text">Kembali ke atas</span>
+          ↑ <span>Kembali ke atas</span>
         </button>
       </div>
     </div>
@@ -286,7 +322,24 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // Update Tahun
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Navigasi Mobile
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+            
+            // Tutup menu saat link diklik
+            const links = document.querySelectorAll('.nav-link');
+            links.forEach(link => {
+                link.addEventListener('click', () => navMenu.classList.remove('active'));
+            });
+        }
     });
   </script>
 </body>
