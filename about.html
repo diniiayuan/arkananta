@@ -2,12 +2,12 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
   <title>About | Arkananta Build & Interior</title>
   <meta name="description" content="Tentang Arkananta: visi, misi, dan komitmen kualitas di setiap proyek." />
   
   <style>
-    /* --- Root & Design Tokens (Sesuai Index) --- */
+    /* --- Root & Design Tokens --- */
     :root {
       --primary: #1a1a1a;
       --accent: #c5a059;
@@ -22,29 +22,55 @@
 
     /* --- Reset & Base --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
       color: var(--text-main);
       background-color: var(--white);
+      overflow-x: hidden;
     }
     .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
     img { max-width: 100%; height: auto; display: block; }
     a { text-decoration: none; color: inherit; transition: var(--transition); }
 
-    /* --- Typography --- */
-    h1, h2, h3 { color: var(--primary); font-weight: 700; line-height: 1.2; }
-    h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; }
-    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; }
-    .kicker { text-transform: uppercase; letter-spacing: 3px; font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.75rem; display: block; }
-
-    /* --- Header & Buttons --- */
-    .site-header { padding: 15px 0; position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); z-index: 1000; border-bottom: 1px solid var(--border); }
+    /* --- Header & RESPONSIVE NAVBAR (FIXED) --- */
+    .site-header { 
+      padding: 15px 0; 
+      position: sticky; 
+      top: 0; 
+      background: rgba(255, 255, 255, 0.98); 
+      z-index: 1000; 
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
     .header-inner { display: flex; justify-content: space-between; align-items: center; }
-    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.5rem; z-index: 1100; }
+    
+    /* Tombol Hamburger */
+    .nav-toggle { 
+      display: none; 
+      flex-direction: column; 
+      gap: 5px; 
+      background: none; 
+      border: none; 
+      cursor: pointer; 
+      padding: 5px; 
+      z-index: 1100;
+    }
+    .nav-toggle span { 
+      display: block; 
+      width: 25px; 
+      height: 2px; 
+      background: var(--primary); 
+      transition: var(--transition); 
+    }
+
+    /* Desktop Navigation */
     .site-nav { display: flex; align-items: center; gap: 25px; }
+    .nav-link { font-weight: 600; color: var(--text-light); font-size: 0.95rem; }
     .nav-link:hover, .nav-link.active { color: var(--accent); }
+
     .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; font-weight: 600; border-radius: 4px; cursor: pointer; border: 2px solid transparent; gap: 10px; }
     .btn-primary { background: var(--primary); color: var(--white); }
     .btn-primary:hover { background: var(--accent); color: var(--primary); }
@@ -52,14 +78,45 @@
     .btn-ghost:hover { background: var(--primary); color: var(--white); }
     .btn-sm { padding: 8px 20px; font-size: 0.9rem; }
 
-    /* --- ABOUT CONTENT --- */
+    /* Mobile Navigation Styles */
+    @media (max-width: 992px) {
+      .nav-toggle { display: flex; }
+      
+      .site-nav {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Sembunyi di kanan */
+        width: 100%;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1050;
+      }
+
+      .site-nav.active { right: 0; }
+
+      /* Animasi Hamburger ke X */
+      .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .nav-toggle.active span:nth-child(2) { opacity: 0; }
+      .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+      .nav-link { font-size: 1.5rem; width: 100%; text-align: center; }
+    }
+
+    /* --- TYPOGRAPHY & SECTIONS --- */
+    h1, h2, h3 { color: var(--primary); font-weight: 700; line-height: 1.2; }
+    h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1.5rem; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 1rem; }
+    .kicker { text-transform: uppercase; letter-spacing: 3px; font-weight: 700; color: var(--accent); font-size: 0.85rem; margin-bottom: 0.75rem; display: block; }
+
     .about-hero { 
       padding: 120px 0; 
       background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80');
-      background-size: cover;
-      background-position: center;
-      color: var(--white);
-      text-align: center;
+      background-size: cover; background-position: center; color: var(--white); text-align: center;
     }
     .about-hero h1 { color: var(--white); margin: 0 auto 20px; max-width: 900px; }
     .about-hero p { font-size: 1.25rem; opacity: 0.9; max-width: 700px; margin: 0 auto; }
@@ -71,8 +128,7 @@
 
     .section { padding: 100px 0; }
     .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-    .image-stack { position: relative; padding: 20px; }
-    .image-main { border-radius: 12px; box-shadow: 20px 20px 0 var(--accent); }
+    .image-main { border-radius: 12px; box-shadow: 20px 20px 0 var(--accent); width: 100%; }
     
     .bg-alt { background: var(--bg-light); }
     .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -82,30 +138,24 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
     .value-card:hover { transform: translateY(-10px); }
-    .value-card h3 { margin-bottom: 15px; color: var(--primary); }
 
     .vm-box { 
       display: grid; grid-template-columns: 1fr 1fr; background: var(--primary); 
       color: var(--white); border-radius: 20px; overflow: hidden; margin-top: 50px;
     }
-    .vm-content { padding: 60px; }
+    .vm-content { padding: clamp(30px, 5vw, 60px); }
     .vm-image { background: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center; }
 
     .cta { background: var(--accent); padding: 80px 0; color: var(--primary); }
     .cta-inner { display: flex; justify-content: space-between; align-items: center; }
 
-    /* --- FOOTER (MATCHING INDEX) --- */
+    /* --- FOOTER --- */
     .site-footer { background: #0f0f0f; color: #888; padding: 80px 0 30px; }
     .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 40px; }
-    .brand-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
-    .brand-name { font-size: 1.5rem; color: #ffffff; letter-spacing: -0.5px; font-weight: 800; }
-    .brand-desc { max-width: 300px; line-height: 1.8; font-size: 0.95rem; }
-    .footer-links h4 { color: #ffffff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 700; }
-    .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; text-decoration: none; margin-bottom: 12px; font-size: 0.95rem; transition: var(--transition); }
-    .footer-nav a:hover, .social-links a:hover { color: var(--accent); transform: translateX(5px); }
-    .footer-meta { grid-column: 1 / -1; margin-top: 60px; padding-top: 30px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
-    .to-top { background: none; border: none; color: #ffffff; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
-    .to-top:hover { color: var(--accent); }
+    .brand-name { font-size: 1.5rem; color: #ffffff; font-weight: 800; }
+    .footer-links h4 { color: #ffffff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+    .footer-nav a, .contact-info span, .social-links a { display: block; color: #888; margin-bottom: 12px; font-size: 0.95rem; }
+    .footer-meta { grid-column: 1 / -1; margin-top: 60px; padding-top: 30px; border-top: 1px solid #222; display: flex; justify-content: space-between; align-items: center; }
 
     @media (max-width: 992px) {
       .intro-grid, .stats-grid, .vm-box, .cta-inner { grid-template-columns: 1fr; }
@@ -115,17 +165,14 @@
     }
     @media (max-width: 600px) {
       .footer-inner { grid-template-columns: 1fr; text-align: center; }
-      .brand-wrapper { justify-content: center; }
-      .brand-desc { margin: 0 auto; }
-      .footer-meta { flex-direction: column; gap: 20px; }
-      .to-top-text { display: none; }
+      .footer-meta { flex-direction: column; gap: 20px; text-align: center; }
     }
   </style>
 </head>
 <body>
    <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="#">
+      <a class="brand" href="index.html">
         <svg width="24" height="24" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#c5a059" stroke-width="6"/>
           <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#1a1a1a"/>
@@ -138,12 +185,12 @@
       </button>
 
       <nav class="site-nav" id="navMenu">
-        <a class="nav-link active" href="index.html">Home</a>
-        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link active" href="about.html">About</a>
         <a class="nav-link" href="services.html">Services</a>
         <a class="nav-link" href="portfolio.html">Portfolio</a>
         <a class="nav-link" href="contact.html">Contact</a>
-        <a class="btn btn-primary btn-sm" href="contact.html" style="margin-top: 10px;">Konsultasi Gratis</a>
+        <a class="btn btn-primary btn-sm" href="contact.html">Konsultasi Gratis</a>
       </nav>
     </div>
   </header>
@@ -294,30 +341,29 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Set tahun otomatis di footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // LOGIKA MENU NAVIGASI HP
         const menuBtn = document.getElementById('menuBtn');
         const navMenu = document.getElementById('navMenu');
 
         if (menuBtn && navMenu) {
             menuBtn.addEventListener('click', (e) => {
-                e.stopPropagation(); // Mencegah event bubbling
+                e.stopPropagation();
+                menuBtn.classList.toggle('active');
                 navMenu.classList.toggle('active');
             });
 
-            // Tutup menu saat mengklik area di luar menu
             document.addEventListener('click', (e) => {
                 if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    menuBtn.classList.remove('active');
                     navMenu.classList.remove('active');
                 }
             });
 
-            // Tutup menu saat salah satu link navigasi diklik
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
+                    menuBtn.classList.remove('active');
                     navMenu.classList.remove('active');
                 });
             });
