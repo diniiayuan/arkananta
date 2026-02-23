@@ -89,7 +89,6 @@
     .hero-media { position: relative; width: 100%; }
     .hero-img { border-radius: 12px; box-shadow: 20px 20px 0 var(--accent); width: 100%; height: clamp(300px, 50vh, 500px); object-fit: cover; }
     
-    /* --- PERBAIKAN ITEM ITEM HITAM --- */
     .hero-card { 
       position: absolute; 
       bottom: 20px; 
@@ -98,7 +97,7 @@
       color: var(--white); 
       padding: 15px; 
       border-radius: 8px; 
-      max-width: 180px; /* Lebar dibatasi agar tidak raksasa di HP */
+      max-width: 180px; 
       box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
       z-index: 5;
     }
@@ -243,7 +242,7 @@
       <div class="container cta-inner">
         <h2>Siap mewujudkan proyek Anda?</h2>
         <p>Konsultasikan kebutuhan Anda sekarang secara gratis.</p>
-        <a class="btn btn-primary" href="contact.html">Hubungi Kami</a>
+        <a class="btn btn-primary" href="#">Hubungi Kami</a>
       </div>
     </section>
   </main>
@@ -251,23 +250,23 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <div class="brand-wrapper">
+        <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
           <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#ffffff" stroke-width="6"/>
             <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#c5a059"/>
           </svg>
           <strong class="brand-name">Arkananta</strong>
         </div>
-        <p class="brand-desc">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
+        <p style="max-width: 300px; line-height: 1.8; font-size: 0.95rem;">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
       </div>
       <div class="footer-links">
         <h4>Navigasi</h4>
         <nav class="footer-nav">
-          <a href="index.html">Home</a>
-          <a href="about.html">About Us</a>
-          <a href="services.html">Services</a>
-          <a href="portfolio.html">Portfolio</a>
-          <a href="contact.html">Contact</a>
+          <a href="#">Home</a>
+          <a href="#">About Us</a>
+          <a href="#">Services</a>
+          <a href="#">Portfolio</a>
+          <a href="#">Contact</a>
         </nav>
       </div>
       <div class="footer-links">
@@ -281,15 +280,15 @@
       <div class="footer-links">
         <h4>Ikuti Kami</h4>
         <div class="social-links">
-          <a href="https://www.instagram.com/">Instagram</a>
-          <a href="https://www.linkedin.com/">LinkedIn</a>
-          <a href="https://wa.me/6281234567890">WhatsApp</a>
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">WhatsApp</a>
         </div>
       </div>
       <div class="footer-meta">
         <p>&copy; <span id="year"></span> Arkananta Build & Interior. All rights reserved.</p>
-        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-          ↑ <span class="to-top-text">Kembali ke atas</span>
+        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:none; border:none; color:#fff; cursor:pointer; font-weight:600;">
+          ↑ Kembali ke atas
         </button>
       </div>
     </div>
@@ -297,7 +296,34 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // Set tahun otomatis di footer
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // LOGIKA MENU NAVIGASI HP
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Mencegah event bubbling
+                navMenu.classList.toggle('active');
+            });
+
+            // Tutup menu saat mengklik area di luar menu
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+
+            // Tutup menu saat salah satu link navigasi diklik
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
     });
   </script>
 </body>
