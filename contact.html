@@ -331,17 +331,17 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+ <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <div class="brand-wrapper">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
           <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#ffffff" stroke-width="6"/>
             <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#c5a059"/>
           </svg>
           <strong class="brand-name">Arkananta</strong>
         </div>
-        <p class="brand-desc">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
+        <p style="max-width: 300px; line-height: 1.8; font-size: 0.95rem;">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
       </div>
       <div class="footer-links">
         <h4>Navigasi</h4>
@@ -364,15 +364,15 @@
       <div class="footer-links">
         <h4>Ikuti Kami</h4>
         <div class="social-links">
-          <a href="#">Instagram</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">WhatsApp</a>
+          <a href="https://www.instagram.com/">Instagram</a>
+          <a href="https://www.linkedin.com/">LinkedIn</a>
+          <a href="https://wa.me/6281234567890" target="_blank">WhatsApp</a>
         </div>
       </div>
       <div class="footer-meta">
         <p>&copy; <span id="year"></span> Arkananta Build & Interior. All rights reserved.</p>
-        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
-          ↑ <span class="to-top-text">Kembali ke atas</span>
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:none; border:none; color:#fff; cursor:pointer; font-weight:600;">
+          ↑ Kembali ke atas
         </button>
       </div>
     </div>
@@ -380,10 +380,8 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Tahun Footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // LOGIKA NAVBAR HP (SAMA DENGAN INDEX)
         const menuBtn = document.getElementById('menuBtn');
         const navMenu = document.getElementById('navMenu');
 
@@ -399,14 +397,6 @@
                     menuBtn.classList.remove('active');
                     navMenu.classList.remove('active');
                 }
-            });
-
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    menuBtn.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
             });
         }
     });
