@@ -56,7 +56,6 @@
     }
     .header-inner { display: flex; justify-content: space-between; align-items: center; }
     
-    /* Perbaikan: Menghilangkan garis bawah pada brand */
     .brand { 
       display: flex; 
       align-items: center; 
@@ -68,18 +67,12 @@
       text-decoration: none; 
     }
     
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none; border: none; cursor: pointer;
-      z-index: 1200; padding: 5px;
-    }
-    .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--primary); transition: var(--transition); }
+    /* DISAMAKAN DENGAN INDEX */
+    .nav-toggle { display: none; cursor: pointer; border: none; background: none; z-index: 1201; }
+    .nav-toggle span { display: block; width: 25px; height: 3px; background: var(--primary); margin: 5px 0; transition: 0.3s; }
 
     .site-nav { display: flex; align-items: center; gap: 25px; }
     
-    /* Perbaikan: Menghilangkan garis bawah pada nav link */
     .nav-link { 
       font-weight: 600; 
       font-size: 0.9rem; 
@@ -100,7 +93,7 @@
       border: none; 
       font-size: 0.85rem; 
       cursor: pointer; 
-      text-decoration: none; /* Tambahan agar teks tombol juga tidak bergaris bawah */
+      text-decoration: none; 
     }
     .btn-primary { background: var(--primary); color: var(--white); }
     .btn-ghost { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
@@ -150,7 +143,6 @@
     .footer-links h4 { color: #ffffff; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; position: relative; }
     .footer-links h4::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 30px; height: 2px; background: var(--accent); }
     
-    /* Perbaikan: Menghilangkan garis bawah pada footer nav links */
     .footer-nav a, .contact-info span { 
       display: block; 
       margin-bottom: 12px; 
@@ -166,28 +158,27 @@
       display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; 
     }
 
-    /* --- MOBILE RESPONSIVE --- */
+    /* --- MOBILE RESPONSIVE (DISAMAKAN DENGAN INDEX) --- */
     @media (max-width: 992px) {
-      .nav-toggle { display: flex; }
+      .nav-toggle { display: block; }
       .site-nav {
-        position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-        background: var(--white); flex-direction: column; justify-content: center;
-        transition: var(--transition); gap: 30px; padding: 40px; z-index: 1150;
+        position: fixed; top: 0; right: -100%; width: 75%; height: 100vh;
+        background: var(--white); flex-direction: column; padding: 100px 30px;
+        transition: 0.4s; box-shadow: -10px 0 30px rgba(0,0,0,0.1); gap: 20px;
       }
       .site-nav.active { right: 0; }
+      .nav-link { font-size: 1.1rem; width: 100%; padding: 10px 0; border-bottom: 1px solid var(--border); }
       
       .intro-grid, .vm-box { grid-template-columns: 1fr; gap: 40px; }
       .vm-image { min-height: 300px; order: -1; }
       .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
       .cta-inner { flex-direction: column; text-align: center; }
-      
       .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
     }
 
     @media (max-width: 600px) {
       .footer-inner { grid-template-columns: 1fr; text-align: center; }
       .footer-links h4::after { left: 50%; transform: translateX(-50%); }
-      .brand-wrapper { justify-content: center; }
       .cta-actions { flex-direction: column; width: 100%; }
       .cta-actions .btn { width: 100%; }
       .footer-meta { flex-direction: column; gap: 20px; text-align: center; }
@@ -360,24 +351,25 @@
         const menuBtn = document.getElementById('menuBtn');
         const navMenu = document.getElementById('navMenu');
 
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            menuBtn.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            
-            if(navMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        });
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navMenu.classList.toggle('active');
+            });
 
-        document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
     });
   </script>
 </body>
