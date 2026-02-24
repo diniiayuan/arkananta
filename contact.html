@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" />
   <title>Contact | Arkananta Build & Interior</title>
   <meta name="description" content="Hubungi Arkananta for konsultasi proyek konstruksi & interior." />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
 
     /* --- Reset & Core --- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; touch-action: pan-y; }
     body { 
       font-family: 'Plus Jakarta Sans', sans-serif; 
       color: var(--text-main); 
@@ -38,14 +38,14 @@
       padding: 0 24px; 
     }
 
-    /* --- Header --- */
+    /* --- Header (SAMA DENGAN INDEX) --- */
     .site-header {
-      padding: 15px 0;
+      padding: 12px 0;
       position: sticky;
       top: 0;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      z-index: 1000;
+      z-index: 1100;
       border-bottom: 1px solid var(--border);
     }
 
@@ -56,15 +56,28 @@
       align-items: center; 
       gap: 12px; 
       font-weight: 800; 
-      font-size: 1.4rem; 
+      font-size: 1.3rem; 
       text-decoration: none; 
       color: var(--primary);
-      letter-spacing: -0.5px;
+      z-index: 1200;
     }
     
-    .brand img { width: 28px; height: 28px; object-fit: contain; }
+    .brand svg { width: 24px; height: 24px; }
 
-    .site-nav { display: flex; align-items: center; gap: 25px; }
+    /* PERBAIKAN: Hamburger Menu (3 Strip) */
+    .nav-toggle { 
+      display: none; 
+      flex-direction: column; 
+      gap: 5px; 
+      background: none; 
+      border: none; 
+      cursor: pointer; 
+      z-index: 1200; 
+      padding: 5px; 
+    }
+    .nav-toggle span { display: block; width: 25px; height: 3px; background: var(--primary); transition: var(--transition); }
+
+    .site-nav { display: flex; align-items: center; gap: 20px; }
     .nav-link { 
       text-decoration: none; 
       color: var(--text-light); 
@@ -73,10 +86,7 @@
       transition: var(--transition); 
     }
     
-    /* PERBAIKAN: Warna Gold untuk Active & Hover */
-    .nav-link:hover, .nav-link.active { 
-      color: var(--accent); 
-    }
+    .nav-link:hover, .nav-link.active { color: var(--accent); }
 
     /* Buttons */
     .btn { 
@@ -84,7 +94,7 @@
       align-items: center;
       justify-content: center;
       padding: 12px 28px; 
-      border-radius: 4px; 
+      border-radius: 6px; 
       font-weight: 700; 
       text-decoration: none; 
       transition: var(--transition); 
@@ -94,7 +104,7 @@
       gap: 10px;
     }
     .btn-primary { background: var(--primary); color: var(--white); }
-    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-3px); }
     .btn-ghost { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
     .btn-ghost:hover { background: var(--primary); color: var(--white); }
     .btn-sm { padding: 8px 20px; font-size: 0.8rem; }
@@ -164,7 +174,7 @@
     h2 { font-size: 1.8rem; font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px; }
     h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
 
-    /* --- FOOTER (MATCHING INDEX) --- */
+    /* --- FOOTER --- */
     .site-footer { background: #0f0f0f; color: #888; padding: 80px 0 30px; }
     .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1.5fr 1fr; gap: 40px; }
     .brand-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
@@ -177,15 +187,28 @@
     .to-top { background: none; border: none; color: #ffffff; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: var(--transition); }
     .to-top:hover { color: var(--accent); }
 
-    /* Mobile Styles */
-    .nav-toggle { display: none; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-
+    /* --- MOBILE RESPONSIVE (SAMA DENGAN INDEX) --- */
     @media (max-width: 992px) {
+      .nav-toggle { display: flex; }
+      
+      .site-nav { 
+        position: fixed; top: 0; right: -100%; width: 75%; height: 100vh; 
+        background: var(--white); flex-direction: column; padding: 100px 30px; 
+        transition: 0.4s; box-shadow: -10px 0 30px rgba(0,0,0,0.1); 
+        z-index: 1150;
+      }
+      .site-nav.active { right: 0; }
+      .nav-link { font-size: 1.1rem; width: 100%; padding: 10px 0; border-bottom: 1px solid var(--border); }
+
+      /* Hamburger Animation */
+      .nav-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+      .nav-toggle.active span:nth-child(2) { opacity: 0; }
+      .nav-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
       .split { grid-template-columns: 1fr; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
-      .site-nav { display: none; }
     }
+    
     @media (max-width: 600px) {
       .footer-inner { grid-template-columns: 1fr; text-align: center; }
       .brand-wrapper { justify-content: center; }
@@ -197,45 +220,43 @@
 </head>
 <body>
 
-  <header class="site-header" data-header>
+  <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="index.html" aria-label="Arkananta Home">
-        <svg width="28" height="28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <a class="brand" href="index.html">
+        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
           <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#c5a059" stroke-width="6"/>
           <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#1a1a1a"/>
         </svg>
         <span>Arkananta</span>
       </a>
 
-      <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
-        <span class="sr-only">Buka menu</span>
+      <button class="nav-toggle" id="menuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
       </button>
 
-      <nav id="site-nav" class="site-nav" data-nav>
+      <nav class="site-nav" id="navMenu">
         <a class="nav-link" href="index.html">Home</a>
         <a class="nav-link" href="about.html">About</a>
         <a class="nav-link" href="services.html">Services</a>
         <a class="nav-link" href="portfolio.html">Portfolio</a>
         <a class="nav-link active" href="contact.html">Contact</a>
-        <a class="btn btn-primary btn-sm nav-cta" href="contact.html">Konsultasi Gratis</a>
+        <a class="btn btn-primary btn-sm" href="contact.html" style="margin-top: 10px;">Konsultasi Gratis</a>
       </nav>
     </div>
   </header>
 
-  <main id="main">
+  <main>
     <section class="page-hero">
-      <div class="container page-hero-inner">
-        <div>
-          <p class="kicker">Contact</p>
+      <div class="container">
+          <span class="kicker">Contact</span>
           <h1>Konsultasi gratis untuk kebutuhan proyek Anda</h1>
           <p class="lead">Isi form singkat. Kami balas dengan langkah dan pertanyaan kunci.</p>
-        </div>
       </div>
     </section>
 
     <section class="section">
       <div class="container split">
-        <form class="card form" data-form>
+        <form class="card form">
           <div class="field">
             <label for="name">Nama</label>
             <input id="name" name="name" type="text" placeholder="Nama Anda" required />
@@ -293,7 +314,7 @@
             </div>
             <div class="info-row">
               <span class="info-label">WhatsApp</span>
-              <span> 0812 3456 7890</span>
+              <span>0812 3456 7890</span>
             </div>
           </div>
 
@@ -343,9 +364,9 @@
       <div class="footer-links">
         <h4>Ikuti Kami</h4>
         <div class="social-links">
-          <a href="https://www.instagram.com/">Instagram</a>
-          <a href="https://www.linkedin.com/">LinkedIn</a>
-          <a href="https://wa.me/6281234567890">WhatsApp</a>
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">WhatsApp</a>
         </div>
       </div>
       <div class="footer-meta">
@@ -359,7 +380,35 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // Tahun Footer
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // LOGIKA NAVBAR HP (SAMA DENGAN INDEX)
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                menuBtn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    menuBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menuBtn.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
     });
   </script>
 </body>
