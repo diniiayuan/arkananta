@@ -244,7 +244,7 @@
         </a>
 
         <a href="#" class="work-item">
-          <img src="https://images.unsplash.com/photo-1600585154340-be6199f7d009?auto=format&fit=crop&w=800&q=80" alt="Kitchen">
+          <img src="https://i.pinimg.com/1200x/06/e3/fd/06e3fd0f6caca5f5e5e6273a21fa1be2.jpg" alt="Kitchen">
           <div class="work-details">
             <span>Interior</span>
             <h3>Modern Scandi Kitchen</h3>
@@ -273,71 +273,83 @@
     </div>
   </main>
 
-  <footer class="site-footer">
+ <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <strong style="color:#fff; font-size: 1.5rem; display: block; margin-bottom: 15px;">Arkananta</strong>
-        <p style="font-size: 0.9rem; line-height: 1.8;">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
+        <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+          <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10 L90 45 H80 V85 H20 V45 H10 L50 10 Z" fill="none" stroke="#ffffff" stroke-width="6"/>
+            <path d="M50 30 L35 75 H42 L45 65 H55 L58 75 H65 L50 30 Z M47 58 L50 48 L53 58 H47 Z" fill="#c5a059"/>
+          </svg>
+          <strong class="brand-name">Arkananta</strong>
+        </div>
+        <p style="max-width: 300px; line-height: 1.8; font-size: 0.95rem;">Membangun dengan integritas, menciptakan ruang yang menginspirasi kehidupan dan bisnis Anda.</p>
       </div>
       <div class="footer-links">
         <h4>Navigasi</h4>
         <nav class="footer-nav">
           <a href="index.html">Home</a>
-          <a href="about.html">About</a>
+          <a href="about.html">About Us</a>
+          <a href="services.html">Services</a>
           <a href="portfolio.html">Portfolio</a>
           <a href="contact.html">Contact</a>
         </nav>
       </div>
       <div class="footer-links">
         <h4>Kontak</h4>
-        <p style="font-size: 0.9rem; margin-bottom: 10px;">info@arkanantabuild.co.id</p>
-        <p style="font-size: 0.9rem;">+62 812 3456 7890</p>
+        <div class="contact-info">
+          <span>info@arkanantabuild.co.id</span>
+          <span>+62 812 3456 7890</span>
+          <span>Jakarta, Indonesia</span>
+        </div>
       </div>
       <div class="footer-links">
-        <h4>Sosial</h4>
-        <div style="display: flex; gap: 15px;">
-          <a href="#" style="color:#fff">IG</a>
-          <a href="#" style="color:#fff">LI</a>
-          <a href="#" style="color:#fff">WA</a>
+        <h4>Ikuti Kami</h4>
+        <div class="social-links">
+          <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+          <a href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+          <a href="https://wa.me/6281234567890" target="_blank">WhatsApp</a>
         </div>
       </div>
       <div class="footer-meta">
-        <p>&copy; <span id="year"></span> Arkananta Build & Interior.</p>
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:none; border:none; color:#fff; cursor:pointer; font-weight:600;">↑ KEMBALI KE ATAS</button>
+        <p>&copy; <span id="year"></span> Arkananta Build & Interior. All rights reserved.</p>
+        <button class="to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background:none; border:none; color:#fff; cursor:pointer; font-weight:600;">
+          ↑ Kembali ke atas
+        </button>
       </div>
     </div>
   </footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Tahun Otomatis
-      document.getElementById('year').textContent = new Date().getFullYear();
+        // Set tahun otomatis di footer
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-      const menuBtn = document.getElementById('menuBtn');
-      const navMenu = document.getElementById('navMenu');
+        // LOGIKA MENU NAVIGASI HP
+        const menuBtn = document.getElementById('menuBtn');
+        const navMenu = document.getElementById('navMenu');
 
-      // Toggle Menu HP
-      menuBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        menuBtn.classList.toggle('active');
-        navMenu.classList.toggle('active');
-        
-        // Mencegah scroll saat menu terbuka
-        if(navMenu.classList.contains('active')) {
-          document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.overflow = '';
+        if (menuBtn && navMenu) {
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // Mencegah event bubbling
+                navMenu.classList.toggle('active');
+            });
+
+            // Tutup menu saat mengklik area di luar menu
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                }
+            });
+
+            // Tutup menu saat salah satu link navigasi diklik
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                });
+            });
         }
-      });
-
-      // Tutup menu jika klik di luar
-      document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
-          menuBtn.classList.remove('active');
-          navMenu.classList.remove('active');
-          document.body.style.overflow = '';
-        }
-      });
     });
   </script>
 </body>
